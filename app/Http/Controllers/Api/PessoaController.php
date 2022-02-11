@@ -8,6 +8,8 @@ use App\Http\Requests\PessoaUpdateRequest;
 use App\Services\PessoaServiceInterface;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Http;
+
 
 class PessoaController extends Controller
 {
@@ -37,11 +39,17 @@ class PessoaController extends Controller
      */
     public function store(PessoaStoreRequest $request)
     {
-        $pessoa = $this->pessoaService->create($request->all());
-        if ($pessoa) {
-            return response()->json($pessoa, Response::HTTP_OK);
+        $data_cep =  json_decode($this->validarCep($request->cep));
+        if(isset($data_cep->cep)){
+            $pessoa = $this->pessoaService->create($request->all());
+            if ($pessoa) {
+                return response()->json($pessoa, Response::HTTP_OK);
+            }
+            return response()->json($pessoa, Response::HTTP_BAD_REQUEST);
+        }else{
+            return json_encode("cep não localizado");
         }
-        return response()->json($pessoa, Response::HTTP_BAD_REQUEST);
+       
     }
 
     /**
@@ -66,11 +74,16 @@ class PessoaController extends Controller
      */
     public function update(PessoaUpdateRequest $request, $id)
     {
-        $pessoa = $this->pessoaService->update($request->all(),$id);
-        if ($pessoa) {
-            return response()->json($pessoa, Response::HTTP_OK);
+        $data_cep =  json_decode($this->validarCep($request->cep));
+        if(isset($data_cep->cep)){
+            $pessoa = $this->pessoaService->update($request->all(),$id);
+            if ($pessoa) {
+                return response()->json($pessoa, Response::HTTP_OK);
+            }
+            return response()->json($pessoa, Response::HTTP_BAD_REQUEST);
+        }else{
+            return json_encode("cep não localizado");
         }
-        return response()->json($pessoa, Response::HTTP_BAD_REQUEST);
     }
 
     
@@ -87,5 +100,13 @@ class PessoaController extends Controller
             return response()->json($pessoa, Response::HTTP_OK);
         }
         return response()->json($pessoa, Response::HTTP_BAD_REQUEST);
+    }
+
+    public function validarCep($cep){  
+        $ch = curl_init("https://viacep.com.br/ws/".$cep."/json");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $json_dados = json_decode(curl_exec($ch));
+        return $json_dados;
     }
 }
