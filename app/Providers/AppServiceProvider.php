@@ -23,7 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \Illuminate\Support\Facades\Schema::defaultStringLength(191);
         $this->app->register(TaskServiceProvider::class);
         $this->app->register(RepositoryServiceProvider::class);
     }

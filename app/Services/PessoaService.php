@@ -32,7 +32,7 @@ class PessoaService implements PessoaServiceInterface
      */
     public function all(): ?Collection
     {
-        // TODO: Implement all() method.
+        return $this->pessoaRepo->all();
     }
 
     /**
@@ -49,7 +49,7 @@ class PessoaService implements PessoaServiceInterface
      */
     public function delete(int $id): ?bool
     {
-        // TODO: Implement delete() method.
+        return $this->pessoaRepo->delete($id);
     }
 
     /**
@@ -57,6 +57,6 @@ class PessoaService implements PessoaServiceInterface
      */
     public function update(array $data, int $id): ?Model
     {
-        // TODO: Implement update() method.
+        return $this->pessoaRepo->update($data,$id);
     }
 }
