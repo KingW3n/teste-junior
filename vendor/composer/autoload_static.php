@@ -45,6 +45,7 @@ class ComposerStaticInit7dfd2099941de9a27aca4ebc82e1640d
         array (
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
             'Tests\\' => 6,
+            'TESTE-JUNIOR\\' => 13,
         ),
         'S' => 
         array (
@@ -191,6 +192,10 @@ class ComposerStaticInit7dfd2099941de9a27aca4ebc82e1640d
         'Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
+        ),
+        'TESTE-JUNIOR\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
         ),
         'Symfony\\Polyfill\\Php80\\' => 
         array (

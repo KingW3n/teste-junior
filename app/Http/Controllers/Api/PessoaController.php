@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PessoaController extends Controller
 {
+
     /**
      * @var PessoaServiceInterface
      */
@@ -28,7 +29,7 @@ class PessoaController extends Controller
      */
     public function index()
     {
-        //
+        echo "ola mundo";
     }
 
     /**
